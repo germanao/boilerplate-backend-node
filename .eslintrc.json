@@ -1,0 +1,31 @@
+{
+  "env": {
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["standard-with-typescript", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {
+    "semi": "off",
+    "eqeqeq": "error",
+    "no-console": "warn",
+    "no-unused-expressions": "warn",
+    "no-unused-vars": "warn",
+    "no-useless-concat": "warn",
+    "no-useless-return": "warn",
+    "no-useless-rename": "warn",
+    "no-var": "error",
+    "no-return-await":"error",
+    "no-await-in-loop":"warn",
+    "no-mixed-spaces-and-tabs": "error",
+    "require-await": "error",
+    "indent": ["error", 2],
+    "space-before-function-paren": ["error", "always"],
+    "space-in-parens": ["error", "never"],
+    "space-infix-ops":"error"
+
+  }
+}
