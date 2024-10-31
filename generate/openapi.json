@@ -1,0 +1,162 @@
+{
+  "info": {
+    "title": "Getting started - Backend",
+    "version": "1.0.0",
+    "description": "Bem vindos a iniciativa: Getting started - Backend! :)"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/api/pessoas/": {
+      "get": {
+        "operationId": "PessoaApiSpec_get_/pessoas/",
+        "tags": [
+          "Pessoa"
+        ],
+        "summary": "Lista de pessoas",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pessoa"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "PessoaApiSpec_post_/pessoas/",
+        "tags": [
+          "Pessoa"
+        ],
+        "summary": "Cria uma Pessoa",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pessoa"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pessoas/{id}": {
+      "get": {
+        "operationId": "PessoaApiSpec_get_/pessoas/{id}",
+        "tags": [
+          "Pessoa"
+        ],
+        "summary": "Obtem Pessoa pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pessoa"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "PessoaApiSpec_put_/pessoas/{id}",
+        "tags": [
+          "Pessoa"
+        ],
+        "summary": "Atualiza uma Pessoa",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pessoa"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "PessoaApiSpec_delete_/pessoas/{id}",
+        "tags": [
+          "Pessoa"
+        ],
+        "summary": "Remove uma Pessoa",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pessoa": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "altura": {
+            "type": "number"
+          },
+          "dataNascimento": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "altura",
+          "dataNascimento",
+          "id",
+          "nome"
+        ]
+      }
+    }
+  }
+}

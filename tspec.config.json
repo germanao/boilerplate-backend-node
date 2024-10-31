@@ -1,0 +1,13 @@
+{
+    "specPathGlobs": ["src/**/*.ts"],
+    "tsconfigPath": "./tsconfig.json",
+    "outputPath": "./generate/openapi.json",
+    "specVersion": 3,
+    "openapi": {
+      "title": "Getting started - Backend",
+      "version": "1.0.0",
+      "description": "Bem vindos a iniciativa: Getting started - Backend! :)"
+    },
+    "debug": false,
+    "ignoreErrors": true
+  }
