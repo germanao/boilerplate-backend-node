@@ -1,6 +1,10 @@
 import { type Tspec } from "tspec";
 
-interface Pessoa {
+/**
+ * Pessoa do treinamento
+ *
+ */
+export interface Pessoa {
   id: number;
   nome: string;
   altura: number;
@@ -15,12 +19,13 @@ export type PessoaApiSpec = Tspec.DefineApiSpec<{
       get: {
         summary: "Lista de pessoas";
         responses: {
-          200: Pessoa[];
+          200: { pessoas: Pessoa[] };
         };
       };
       post: {
         summary: "Cria uma Pessoa";
         requestBody: Pessoa;
+        body: Pessoa;
         responses: {
           201: Pessoa;
         };
@@ -38,6 +43,7 @@ export type PessoaApiSpec = Tspec.DefineApiSpec<{
         summary: "Atualiza uma Pessoa";
         path: { id: number };
         requestBody: Pessoa;
+        body: Pessoa;
         responses: {
           200: Pessoa;
         };

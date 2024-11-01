@@ -1,0 +1,10 @@
+{
+    "pessoas": [
+        {
+          "id": 1,
+          "nome": "Tanjiro Kamado",
+          "altura": 1.54,
+          "dataNascimento": "01/12/1855"
+        }
+    ]
+}

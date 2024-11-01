@@ -15,3 +15,7 @@ export const handleDynamicRoute = (
     express.use(`/api/${routeName}`, router);
   }
 };
+
+export const getRandomID = (): number => {
+  return Math.floor(Date.now() + Math.random());
+};

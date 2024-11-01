@@ -8,6 +8,7 @@ const initServer = async (): Promise<void> => {
   app.use((req, res, next) => {
     next();
   });
+  app.use(express.json());
 
   app.use("/api", routes);
   app.use("/docs", await TspecDocsMiddleware());

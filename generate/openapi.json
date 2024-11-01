@@ -20,10 +20,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Pessoa"
-                  }
+                  "type": "object",
+                  "properties": {
+                    "pessoas": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Pessoa"
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "pessoas"
+                  ]
                 }
               }
             }
@@ -37,9 +46,43 @@
         ],
         "summary": "Cria uma Pessoa",
         "parameters": [],
+        "requestBody": {
+          "description": "Pessoa do treinamento",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "Pessoa do treinamento",
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "nome": {
+                    "type": "string"
+                  },
+                  "altura": {
+                    "type": "number"
+                  },
+                  "dataNascimento": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "altura",
+                  "dataNascimento",
+                  "id",
+                  "nome"
+                ]
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
-            "description": "",
+            "description": "Pessoa do treinamento",
             "content": {
               "application/json": {
                 "schema": {
@@ -70,7 +113,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "Pessoa do treinamento",
             "content": {
               "application/json": {
                 "schema": {
@@ -97,9 +140,43 @@
             }
           }
         ],
+        "requestBody": {
+          "description": "Pessoa do treinamento",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "Pessoa do treinamento",
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "nome": {
+                    "type": "string"
+                  },
+                  "altura": {
+                    "type": "number"
+                  },
+                  "dataNascimento": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "altura",
+                  "dataNascimento",
+                  "id",
+                  "nome"
+                ]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "",
+            "description": "Pessoa do treinamento",
             "content": {
               "application/json": {
                 "schema": {
@@ -133,6 +210,7 @@
   "components": {
     "schemas": {
       "Pessoa": {
+        "description": "Pessoa do treinamento",
         "type": "object",
         "properties": {
           "id": {
