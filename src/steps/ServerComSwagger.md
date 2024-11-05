@@ -4,11 +4,11 @@ import { TspecDocsMiddleware } from "tspec";
 
 const initServer = async (): Promise<void> => {
   const app = express();
-  
-  app.use(express.json());
+
   app.use((req, res, next) => {
     next();
   });
+  app.use(express.json());
 
   app.use("/api", routes);
   app.use("/docs", await TspecDocsMiddleware());
