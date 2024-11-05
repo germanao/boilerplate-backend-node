@@ -8,8 +8,12 @@ const router = express.Router();
 let { pessoas: pessoasMock } = require("../utils/pessoas.json");
 
 router.get("/", (req, res) => {
+  const nameFilter = req.query.nome;
+
   res.json({
-    pessoas: pessoasMock,
+    pessoas: nameFilter
+      ? pessoasMock.filter((pessoa: Pessoa) => pessoa.nome === nameFilter)
+      : pessoasMock,
   });
 });
 
