@@ -5,14 +5,17 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "nodemon",
+    "dev": "tspec generate --outputPath openapi.json && nodemon",
     "test": "jest"
   },
   "dependencies": {
+    "@types/swagger-ui-express": "^4.1.7",
     "eslint-config-prettier": "^9.0.0",
-    "express": "^4.18.2",
+    "express": "^4.21.1",
     "nodemon": "^3.0.1",
     "prisma": "^5.5.2",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "4.6.2",
     "tspec": "^0.1.116",
     "typescript": "*"
   },
@@ -20,7 +23,7 @@
     "@babel/core": "^7.23.2",
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-typescript": "^7.23.2",
-    "@types/express": "^4.17.20",
+    "@types/express": "^5.0.0",
     "@types/jest": "^29.5.7",
     "@types/node": "^20.8.10",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
