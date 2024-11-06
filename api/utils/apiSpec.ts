@@ -18,6 +18,9 @@ export type PessoaApiSpec = Tspec.DefineApiSpec<{
     "/pessoas/": {
       get: {
         summary: "Lista de pessoas";
+        query: {
+          nome?: string;
+        };
         responses: {
           200: { pessoas: Pessoa[] };
         };

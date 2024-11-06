@@ -3,6 +3,7 @@
 import express from "express";
 import { getRandomID } from "../utils/utils";
 import { type Pessoa } from "../utils/apiSpec";
+import { atualizar } from "./pessoaService";
 
 const router = express.Router();
 let { pessoas: pessoasMock } = require("../utils/pessoas.json");
@@ -49,30 +50,13 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
   try {
-    const pessoaDoBodyDaRequisicao: Pessoa = req.body;
-    if (!pessoaDoBodyDaRequisicao) res.status(404).send("Pessoa inválida");
-
-    let pessoaExistente = pessoasMock.find(
-      (pessoa: Pessoa) => pessoa.id === +req.params.id,
-    );
-
-    if (!pessoaExistente)
-      res.status(404).send("Nenhuma pessoa encontrada para o ID informado");
-
-    // Atualiza as informações da requisição
-    pessoaExistente = {
-      id: +req.params.id,
-      nome: pessoaDoBodyDaRequisicao.nome,
-      altura: pessoaDoBodyDaRequisicao.altura,
-      dataNascimento: pessoaDoBodyDaRequisicao.dataNascimento,
-    };
-
-    pessoasMock = pessoasMock.filter(
-      (pessoa: Pessoa) => pessoa.id !== +req.params.id,
-    );
-    pessoasMock.push(pessoaExistente);
-
-    res.json(pessoaExistente);
+    try {
+      const pessoaAtualizada = atualizar(req.body, +req.params.id);
+      res.json(pessoaAtualizada);
+    } catch (error: any) {
+      const errorType: Error = error;
+      res.status(404).send(errorType.message);
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send("Erro interno");

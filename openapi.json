@@ -13,7 +13,16 @@
           "Pessoa"
         ],
         "summary": "Lista de pessoas",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "nome",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
