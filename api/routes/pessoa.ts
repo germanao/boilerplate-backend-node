@@ -1,14 +1,21 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import express from "express";
 import { getRandomID } from "../utils/utils";
 import { type Pessoa } from "../utils/apiSpec";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const router = express.Router();
 let { pessoas: pessoasMock } = require("../utils/pessoas.json");
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   const nameFilter = req.query.nome;
+
+  await prisma.user.deleteMany({ where: {} });
+  console.log("Count usuários:", await prisma.user.count());
 
   res.json({
     pessoas: nameFilter
