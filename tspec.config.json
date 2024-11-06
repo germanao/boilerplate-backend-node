@@ -1,5 +1,5 @@
 {
-    "specPathGlobs": ["src/**/*.ts"],
+    "specPathGlobs": ["api/**/*.ts"],
     "tsconfigPath": "./tsconfig.json",
     "outputPath": "./generate/openapi.json",
     "specVersion": 3,
