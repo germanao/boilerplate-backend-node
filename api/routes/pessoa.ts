@@ -3,7 +3,9 @@ import express from "express";
 import { type Pessoa } from "../utils/apiSpec";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ["query"]
+});
 
 const router = express.Router();
 
