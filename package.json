@@ -5,7 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "tspec generate --outputPath openapi.json && nodemon",
+    "dev": "tspec generate --outputPath openapi.json && dotenv -e .env.local -- nodemon",
+    "prd": "nodemon",
     "test": "jest",
     "postinstall": "prisma generate"
   },
