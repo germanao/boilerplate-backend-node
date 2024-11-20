@@ -7,7 +7,9 @@ import { type Tspec } from "tspec";
 export interface Pessoa {
   id: number;
   nome: string;
+  email: string;
   altura: number;
+  idade: number;
   dataNascimento: Date;
 }
 

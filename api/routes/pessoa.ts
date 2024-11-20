@@ -1,103 +1,115 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import express from "express";
-import { getRandomID } from "../utils/utils";
 import { type Pessoa } from "../utils/apiSpec";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 const router = express.Router();
-let { pessoas: pessoasMock } = require("../utils/pessoas.json");
 
 router.get("/", async (req, res) => {
-  const nameFilter = req.query.nome;
+  const nameFilter = req.query.nome as string;
 
-  await prisma.user.deleteMany({ where: {} });
-  console.log("Count usuários:", await prisma.user.count());
+  const pessoas = await prisma.user.findMany({
+    where: {
+      name: nameFilter ?? undefined,
+    },
+  });
 
   res.json({
-    pessoas: nameFilter
-      ? pessoasMock.filter((pessoa: Pessoa) => pessoa.nome === nameFilter)
-      : pessoasMock,
+    pessoas,
   });
 });
 
-router.get("/:id", (req, res) => {
-  const pessoaExistente = pessoasMock.find(
-    (pessoa: Pessoa) => pessoa.id === +req.params.id,
-  );
+router.get("/:id", async (req, res) => {
+  const pessoaExistente = await prisma.user.findUnique({
+    where: {
+      id: +req.params.id,
+      // idade: {
+      //   gte: 1,
+      // },
+      // NOT: {
+      //   name: { in: ["teste2", "teste1"] },
+      // },
+    },
+  });
 
-  if (!pessoaExistente)
+  if (!pessoaExistente) {
     res.status(404).send("Nenhuma pessoa encontrada para o ID informado");
+    return;
+  }
 
   res.json(pessoaExistente);
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const pessoaDoBodyDaRequisicao: Pessoa = req.body;
-    if (!pessoaDoBodyDaRequisicao) res.status(404).send("Pessoa inválida");
+    if (!pessoaDoBodyDaRequisicao) {
+      res.status(404).send("Pessoa inválida");
+      return;
+    }
 
-    const novaPessoaParaSalvar = {
-      ...pessoaDoBodyDaRequisicao,
-      id: getRandomID(),
-    };
+    const newUser = await prisma.user.create({
+      data: {
+        name: pessoaDoBodyDaRequisicao.nome,
+        email: pessoaDoBodyDaRequisicao.email,
+        idade: pessoaDoBodyDaRequisicao.idade,
+      },
+    });
 
-    pessoasMock.push(novaPessoaParaSalvar);
-
-    res.status(201).json(novaPessoaParaSalvar);
+    res.status(201).json(newUser);
   } catch (error) {
     console.error(error);
     res.send("Erro interno").status(500);
   }
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const pessoaDoBodyDaRequisicao: Pessoa = req.body;
-    if (!pessoaDoBodyDaRequisicao) res.status(404).send("Pessoa inválida");
+    if (!pessoaDoBodyDaRequisicao) {
+      res.status(404).send("Pessoa inválida");
+      return;
+    }
 
-    let pessoaExistente = pessoasMock.find(
-      (pessoa: Pessoa) => pessoa.id === +req.params.id,
-    );
+    const pessoaExistente = await prisma.user.findUnique({
+      where: { id: +req.params.id },
+    });
 
-    if (!pessoaExistente)
+    if (!pessoaExistente) {
       res.status(404).send("Nenhuma pessoa encontrada para o ID informado");
+      return;
+    }
 
-    // Atualiza as informações da requisição
-    pessoaExistente = {
-      id: +req.params.id,
-      nome: pessoaDoBodyDaRequisicao.nome,
-      altura: pessoaDoBodyDaRequisicao.altura,
-      dataNascimento: pessoaDoBodyDaRequisicao.dataNascimento,
-    };
+    const pessoaAtualizada = await prisma.user.update({
+      data: {
+        name: pessoaDoBodyDaRequisicao.nome,
+        email: pessoaDoBodyDaRequisicao.email,
+        idade: pessoaDoBodyDaRequisicao.idade,
+      },
+      where: { id: +req.params.id },
+    });
 
-    pessoasMock = pessoasMock.filter(
-      (pessoa: Pessoa) => pessoa.id !== +req.params.id,
-    );
-    pessoasMock.push(pessoaExistente);
-
-    res.json(pessoaExistente);
+    res.json(pessoaAtualizada);
   } catch (error) {
     console.error(error);
     res.status(500).send("Erro interno");
   }
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    const pessoaExistente = pessoasMock.find(
-      (pessoa: Pessoa) => pessoa.id === +req.params.id,
-    );
+    const pessoaExistente = await prisma.user.findUnique({
+      where: { id: +req.params.id },
+    });
 
-    if (!pessoaExistente)
+    if (!pessoaExistente) {
       res.status(404).send("Nenhuma pessoa encontrada para o ID informado");
+      return;
+    }
 
-    pessoasMock = pessoasMock.filter(
-      (pessoa: Pessoa) => pessoa.id !== +req.params.id,
-    );
+    await prisma.user.delete({ where: { id: pessoaExistente.id } });
 
     res.status(204).send("Pessoa removida com sucesso!");
   } catch (error) {

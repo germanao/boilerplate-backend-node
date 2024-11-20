@@ -70,7 +70,13 @@
                   "nome": {
                     "type": "string"
                   },
+                  "email": {
+                    "type": "string"
+                  },
                   "altura": {
+                    "type": "number"
+                  },
+                  "idade": {
                     "type": "number"
                   },
                   "dataNascimento": {
@@ -82,7 +88,9 @@
                 "required": [
                   "altura",
                   "dataNascimento",
+                  "email",
                   "id",
+                  "idade",
                   "nome"
                 ]
               }
@@ -164,7 +172,13 @@
                   "nome": {
                     "type": "string"
                   },
+                  "email": {
+                    "type": "string"
+                  },
                   "altura": {
+                    "type": "number"
+                  },
+                  "idade": {
                     "type": "number"
                   },
                   "dataNascimento": {
@@ -176,7 +190,9 @@
                 "required": [
                   "altura",
                   "dataNascimento",
+                  "email",
                   "id",
+                  "idade",
                   "nome"
                 ]
               }
@@ -228,7 +244,13 @@
           "nome": {
             "type": "string"
           },
+          "email": {
+            "type": "string"
+          },
           "altura": {
+            "type": "number"
+          },
+          "idade": {
             "type": "number"
           },
           "dataNascimento": {
@@ -240,7 +262,9 @@
         "required": [
           "altura",
           "dataNascimento",
+          "email",
           "id",
+          "idade",
           "nome"
         ]
       }
